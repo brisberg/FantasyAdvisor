@@ -18,8 +18,8 @@ authorization_url, state = yahoo.authorization_url(
         prompt="login",
         nonce="noncestring")
 
-print 'Please go to %s and authorize access.' % authorization_url
-auth_code = raw_input('Enter the auth code given: ')
+print('Please go to %s and authorize access.' % authorization_url)
+auth_code = input('Enter the auth code given: ')
 
 token = yahoo.fetch_token(
         'https://api.login.yahoo.com/oauth2/get_token',
