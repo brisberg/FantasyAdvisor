@@ -16,18 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
-from rest_framework import routers
+from patches import routers
+from yahoo.urls import router as yahoo_router
 
-# router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet)
-# router.register(r'groups', views.GroupViewSet)
+router = routers.DefaultRouter()
+router.extend(yahoo_router)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    # url(r'^', include(router.urls)),
-    # url(r'^$', views.api_root),
-    url(r'^', include('yahoo.urls')),
+    url(r'^', include(router.urls)),
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
