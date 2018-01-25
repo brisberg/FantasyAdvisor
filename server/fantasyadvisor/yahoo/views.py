@@ -5,6 +5,7 @@ from rest_framework import generics
 
 from yahoo.models import League
 from yahoo.serializers import UserSerializer, GroupSerializer, LeagueSerializer
+from yahoo.permissions import IsOwnerOrReadOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -34,4 +35,5 @@ class LeagueList(generics.ListCreateAPIView):
 class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = League.objects.all()
     serializer_class = LeagueSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
