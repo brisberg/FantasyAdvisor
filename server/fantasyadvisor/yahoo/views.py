@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import generics
 
@@ -24,8 +25,13 @@ class GroupViewSet(viewsets.ModelViewSet):
 class LeagueList(generics.ListCreateAPIView):
     queryset = League.objects.all()
     serializer_class = LeagueSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class LeagueDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = League.objects.all()
     serializer_class = LeagueSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
