@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from yahoo.serializers import UserSerializer, GroupSerializer
 
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -27,46 +29,44 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-@csrf_exempt
-def league_list(request):
+@api_view(['GET', 'POST'])
+def league_list(request, format=None):
     """
     List all leagues, or create a new league.
     """
     if request.method == 'GET':
         leagues = League.objects.all()
         serializer = LeagueSerializer(leagues, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = LeagueSerializer(data=data)
+    serializer = LeagueSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def league_detail(request, pk):
+@api_view(['GET', 'PUT', 'DELETE'])
+def league_detail(request, pk, format=None):
     """
     Retrieve, update or delete a league.
     """
     try:
         league = League.objects.get(pk=pk)
     except League.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = LeagueSerializer(league)
-        return JsonResponse(serializer.data)
+        serializer = LeagueSerializer(snippet)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = LeagueSerializer(league, data=data)
+        serializer = LeagueSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         league.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
