@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets, status
+from rest_framework import viewsets
+from rest_framework import status
+from rest_framework import mixins
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -24,46 +27,36 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class LeagueList(APIView):
+class LeagueList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
     """
     List all leagues, or create a new league.
     """
-    def get(self, request, format=None):
-        leagues = League.objects.all()
-        serializer = LeagueSerializer(leagues, many=True)
-        return Response(serializer.data)
+    queryset = League.objects.all()
+    serializer_class = LeagueSerializer
 
-    def post(self, request, format=None):
-        serializer = LeagueSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
-class LeagueDetail(APIView):
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class LeagueDetail(mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    generics.GenericAPIView):
     """
     Retrieve, update or delete a league.
     """
-    def get_object(self, pk):
-        try:
-            return League.objects.get(pk=pk)
-        except League.DoesNotExist:
-            raise Http404
+    queryset = League.objects.all()
+    serializer_class = LeagueSerializer
 
-    def get(self, request, pk, format=None):
-        league = self.get_object(pk)
-        serializer = LeagueSerializer(league)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, pk, format=None):
-        league = self.get_object(pk)
-        serializer = LeagueSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
-    def delete(self, request, pk, format=None):
-        league = self.get_object(pk)
-        league.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
