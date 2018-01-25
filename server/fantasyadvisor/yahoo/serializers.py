@@ -7,7 +7,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups', 'leagues')
+        fields = ('url', 'id', 'username', 'email', 'groups', 'leagues')
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,9 +15,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
-class LeagueSerializer(serializers.ModelSerializer):
+class LeagueSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = League
-        fields = ('id', 'title', 'game_code', 'owner')
+        fields = ('url', 'id', 'title', 'game_code', 'owner')
