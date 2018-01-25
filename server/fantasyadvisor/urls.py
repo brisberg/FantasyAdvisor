@@ -18,6 +18,9 @@ from django.conf.urls import url, include
 from django.urls import path
 from patches import routers
 from yahoo.urls import router as yahoo_router
+from rest_framework.schemas import get_schema_view
+
+schema_view = get_schema_view(title='FantasyAdvisor API')
 
 router = routers.DefaultRouter()
 router.extend(yahoo_router)
@@ -26,6 +29,7 @@ router.extend(yahoo_router)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^schema/$', schema_view),
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
