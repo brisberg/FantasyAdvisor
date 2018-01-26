@@ -1,5 +1,7 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from rest_framework import serializers
+
+from core.models import User
 from yahoo.models import League
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -7,7 +9,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'email', 'groups', 'leagues')
+        fields = ('url', 'id', 'username', 'email', 'groups', 'leagues', 'yahoo_auth_token')
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
