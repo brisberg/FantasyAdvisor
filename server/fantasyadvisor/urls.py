@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 from patches import routers
+from core.urls import router as core_router
 from yahoo.urls import router as yahoo_router
 from rest_framework.schemas import get_schema_view
 
 schema_view = get_schema_view(title='FantasyAdvisor API')
 
 router = routers.DefaultRouter()
+router.extend(core_router)
 router.extend(yahoo_router)
 
 # Wire up our API using automatic URL routing.
