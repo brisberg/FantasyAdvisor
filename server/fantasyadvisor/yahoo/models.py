@@ -3,6 +3,13 @@ from django.db import models
 
 # Create your models here.
 
+class YahooAccessToken(models.Model):
+    access_token = models.CharField(max_lenth=1200)
+    refresh_token = models.CharField(max_length=100)
+    token_type = models.CharField(max_length=20)
+    xoauth_yahoo_guid = models.CharField(max_length=20)
+    expires_at = 
+    expires_in
 
 class League(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -12,3 +19,5 @@ class League(models.Model):
 
     class Meta:
         ordering = ('created',)
+
+ZVBPEGZE6VD7ALO5V3J2QG2BCY

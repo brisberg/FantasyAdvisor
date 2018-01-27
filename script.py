@@ -28,5 +28,6 @@ token = yahoo.fetch_token(
         client_id=CLIENT_ID,
         client_secret=CLIENT_SECRET)
 
+print(token)
 r = yahoo.get('https://fantasysports.yahooapis.com/fantasy/v2/game/nfl')
 # Enjoy =)
