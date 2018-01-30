@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.conf.urls import url, include
 from django.urls import path
 from patches import routers
 from core.urls import router as core_router
+import core.views as views
 from yahoo.urls import router as yahoo_router
 from rest_framework.schemas import get_schema_view
 
@@ -31,6 +33,11 @@ router.extend(yahoo_router)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
+    # social auth
+    url(r'^home/$', views.home, name='home'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
+    # end social auth
     url(r'^schema/$', schema_view),
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),

@@ -9,6 +9,23 @@ from core.models import User
 from core.serializers import UserSerializer, GroupSerializer
 
 # Create your views here.
+
+# social auth example
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required
+def home(request):
+    return render(request, 'home.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+@login_required
+def logout(request):
+    return render(request, 'logout.html')
+# end example
+
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.

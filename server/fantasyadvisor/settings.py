@@ -64,7 +64,7 @@ ROOT_URLCONF = 'fantasyadvisor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'core/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,16 +79,20 @@ TEMPLATES = [
     },
 ]
 
+SOCIAL_AUTH_GITHUB_KEY = 'b7a9c9ebf2d549e50f4e'
+SOCIAL_AUTH_GITHUB_SECRET = '1bec24b5627ddaf5b877e3565d31ce2a1d86f6bf'
+
 SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9anBHclBGa3JZQVdmJmQ9WVdrOU5rMXJRbUYxTlRBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wYw--'
 SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = 'bfcb4de1accd1fd7469359b4c0aefd00987d9fa7'
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
     'social_core.backends.yahoo.YahooOAuth2',
 )
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
 
 WSGI_APPLICATION = 'fantasyadvisor.wsgi.application'
 
