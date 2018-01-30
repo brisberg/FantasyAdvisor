@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^schema/$', schema_view),
     path('admin/', admin.site.urls),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
