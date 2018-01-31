@@ -1,11 +1,10 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
-from core.models import User
 from core.serializers import UserSerializer, GroupSerializer
 
 # Create your views here.

@@ -81,6 +81,8 @@ TEMPLATES = [
     },
 ]
 
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
 SOCIAL_AUTH_GITHUB_KEY = 'b7a9c9ebf2d549e50f4e'
 SOCIAL_AUTH_GITHUB_SECRET = '1bec24b5627ddaf5b877e3565d31ce2a1d86f6bf'
 
@@ -114,7 +116,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'core.User'
+# AUTH_USER_MODEL = 'core.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
