@@ -25,8 +25,10 @@ SECRET_KEY = 'a291+$x)2jy&b0gws^84+u)1yqk3z#oe1_+vkfbn_sk%#ku%%m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'www.fantasyadvdev.com']
 
+# Setup support for proxy headers
+USE_X_FORWARDED_HOST = True
 
 # Application definition
 
@@ -82,8 +84,9 @@ TEMPLATES = [
 SOCIAL_AUTH_GITHUB_KEY = 'b7a9c9ebf2d549e50f4e'
 SOCIAL_AUTH_GITHUB_SECRET = '1bec24b5627ddaf5b877e3565d31ce2a1d86f6bf'
 
-SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9anBHclBGa3JZQVdmJmQ9WVdrOU5rMXJRbUYxTlRBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wYw--'
-SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = 'bfcb4de1accd1fd7469359b4c0aefd00987d9fa7'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9WUJ5ejZaNnplQnlUJmQ9WVdrOWVHWk9SakJOTm0wbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0zMQ--'
+SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = '622197c4e5a735bf5820a0cf82e0f48fae163f76'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
