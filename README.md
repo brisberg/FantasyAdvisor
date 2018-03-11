@@ -17,3 +17,8 @@ apps that are inside the project directory.
 ## Run Django server
 
 `python server/manage.py runserver`
+
+or
+
+```cd server
+gunicorn --bind 0.0.0.0:8000 fantasyadvisor.wsgi```

@@ -32,7 +32,7 @@ router.extend(yahoo_router)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
     # social auth
     url(r'^home/$', views.home, name='home'),
     url(r'^login/$', views.login, name='login'),
