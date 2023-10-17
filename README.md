@@ -1,6 +1,8 @@
 # FantasyAdvisor
 Web Application to make recommendations and manage your Yahoo Sports Fantasy Team
 
+*Archived Oct 2023*: Unlikely to keep workin on this project in its current form.
+
 ## Virtualenv Management
 
 Need to create a local virtualenv called `faenv`
